@@ -1,6 +1,6 @@
 # Lyrix · Web de curadoria: contexto do projeto
 
-Aplicação web **interna**, usada só pelo responsável do projeto, para **criar e validar o acervo** de músicas do Lyrix. Ela consome as rotas `/admin` da API em `backend/` (veja `backend/Claude.md`). O app mobile fica em `app/` e as funcionalidades do MVP em `design/`.
+Aplicação web **interna**, usada só pelo responsável do projeto, para **criar e validar o acervo** de músicas do Lyrix. Ela consome as rotas `/admin` da API (veja `backend/API.md`).
 
 **Fluxo:**
 1. Colar o link do YouTube.
@@ -86,7 +86,7 @@ web/
     - Último processamento.
 
 ## Como rodar
-1. API e worker em `backend/` (veja `backend/Claude.md`): `uvicorn api.main:app --reload` e `python -m api.worker`.
+1. API e worker em `backend/` (veja `backend/README.md`): `uvicorn api.main:app --reload` e `python -m api.worker`.
 2. Em `web/`:
    ```
    npm install
@@ -102,19 +102,10 @@ web/
 - A sincronia (`useLyricSync`) deve continuar igual à que o app mobile vai usar, para a revisão mostrar o que o usuário verá. O app usa busca binária e o site usa uma busca linear, com o mesmo resultado para linhas ordenadas.
 - O offset vai sempre no campo `offset_ms`, nunca na tag `[offset:]` do LRC.
 
-## Verificado
-- `npm run build` sem erros (TypeScript estrito).
-- Com a API num PostgreSQL temporário com dados reais da LRCLIB:
-  - a lista e a tela de revisão (59 linhas) aparecem corretamente;
-  - o CORS foi liberado;
-  - o import devolve 409 para um vídeo duplicado e 503 sem `YOUTUBE_API_KEY`.
-
-**Não verificado:**
-- A reprodução e a sincronia com o vídeo tocando: o navegador headless cria o iframe do YouTube, mas não desenha nem toca o vídeo. Teste manualmente.
-- O fluxo de importação completo: precisa de `YOUTUBE_API_KEY`.
-- O alinhamento real: precisa das dependências de processamento no worker.
+## Não verificado
+- A reprodução e a sincronia com o vídeo tocando (só o layout e os dados foram conferidos).
+- O fluxo de importação completo, que precisa de `YOUTUBE_API_KEY`.
 
 ## A definir
 - Hospedagem (por enquanto só no localhost).
-- Compartilhar `lrc.ts` e `sync.ts` com o app mobile num pacote comum, ou manter cópias.
-- Verificação periódica dos vídeos (status `broken`): a API ainda não tem essa rota.
+- Compartilhar a lógica de sincronia com o app mobile num pacote comum, ou manter cópias.

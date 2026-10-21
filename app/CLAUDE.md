@@ -1,27 +1,13 @@
 # Lyrix · App (React Native): contexto do projeto
 
-Este arquivo é o contexto do aplicativo mobile para as próximas sessões do Claude. Ele registra **só o que já foi decidido** e marca como **"a definir"** o que ainda não foi.
+Contexto do app mobile para as próximas sessões do Claude. Ele registra o que já foi decidido e marca como **"a definir"** o que ainda não foi. A visão geral do produto e das pastas está no `README.md` da raiz. As telas estão em `design/`. A API está em `backend/API.md`.
 
-## Visão geral
-App para **Android e iOS** para **estudar inglês com músicas**.
+**Fluxo do MVP:**
+1. Escolher uma música do acervo.
+2. Ouvir com a letra sincronizada, com a linha atual destacada.
+3. Tocar numa palavra ou selecionar uma frase curta para ver a tradução.
 
-- O usuário escolhe uma música do acervo e ouve pelo **player do YouTube**, visível no app.
-- A **letra acompanha o áudio em tempo real**.
-- Tocar numa palavra, ou selecionar uma frase curta, mostra a **tradução só daquele trecho**.
-
-**Problema que o app resolve:** no Spotify, a letra sincronizada para de acompanhar depois de algum tempo e na troca de música. A sincronização aqui precisa ser **estável do começo ao fim**.
-
-**Estrutura do repositório:**
-- `app/`: este aplicativo (Expo + TypeScript; veja "Implementação atual").
-- `backend/`: o backend (veja `backend/Claude.md`).
-- `design/`: as funcionalidades do MVP e as telas (veja `design/Funcionalidades-MVP.md`).
-
-## Fluxo principal do usuário no MVP
-1. **Escolher uma música** do acervo curado (só músicas cadastradas pelo responsável do projeto).
-2. **Ouvir com a letra sincronizada:** o player do YouTube toca o vídeo e a linha atual da letra fica destacada.
-3. **Traduzir sob demanda:** tocar numa palavra mostra a tradução da palavra. Selecionar uma frase curta mostra a tradução da frase.
-
-**Escopo:** **uma música por vez. Sem biblioteca do usuário e sem fila de músicas.**
+**Escopo:** **uma música por vez. Sem biblioteca do usuário e sem fila de músicas.** A sincronia precisa ser **estável do começo ao fim**, que é o problema do Spotify que o app resolve.
 
 ## Decisões já tomadas
 1. **React Native**, para Android e iOS.
@@ -50,26 +36,17 @@ App para **Android e iOS** para **estudar inglês com músicas**.
 16. **Erros ao abrir a música:** 404 (música tirada do ar) mostra a tela 11, "Música indisponível". Outros erros com rede mostram o layout da tela 12 com ícone de alerta, "Não foi possível carregar a música", Tentar de novo / Voltar ao acervo. Sem rede mostra a tela 12.
 17. **Segundo plano:** `AppState` = `background` pausa o player. Ao voltar, o usuário retoma pelo player.
 
-## Como a sincronização deve funcionar (lógica discutida)
-- **Leitura do tempo do vídeo:** o player do YouTube informa o tempo atual (`getCurrentTime()`) de forma **assíncrona**, pela WebView. Por isso:
-  1. **Âncora:** ler o tempo real a cada ~500 ms e logo após cada mudança de estado (tocando, pausado, carregando, fim). Guardar `{ tempoDoVídeo, momentoLocal }`.
-  2. **Interpolação:** a cada frame, estimar `tempoAtual = âncora.tempoDoVídeo + (agora − âncora.momentoLocal) × velocidade`, sem chamar o player.
-  3. Cada nova leitura corrige a estimativa, então o erro nunca se acumula.
+## Como a sincronização funciona
+- **Leitura do tempo do vídeo:** `getCurrentTime()` é **assíncrono** (passa pela WebView). Por isso:
+  1. **Âncora:** ler o tempo real a cada ~500 ms e logo após cada mudança de estado. Guardar `{ tempoDoVídeo, momentoLocal }`.
+  2. **Interpolação:** a cada frame, estimar `tempoAtual = âncora.tempoDoVídeo + (agora − âncora.momentoLocal) × velocidade`.
+  3. Cada nova leitura corrige a estimativa, então o erro não se acumula.
 - **Escolha da linha:**
   - `tempoDaLetra = tempoAtual − offset_ms − latênciaDoÁudio`;
   - em seguida, **busca binária** pela última linha com `início ≤ tempoDaLetra`;
-  - um seek é tratado automaticamente.
-- **Linhas vazias do LRC** (ex.: `[01:45.20]`) apagam o destaque durante os trechos instrumentais.
-- **Formato LRC:**
-  - `[mm:ss.xx]Texto da linha`;
-  - uma linha pode ter vários tempos (`[00:10.00][01:20.00]Refrão`);
-  - metadados como `[ti:]` e `[ar:]` são ignorados;
-  - **usar o `offset_ms` do backend, não a tag `[offset:]` do LRC.**
-- **Pontos de atenção já identificados:**
-  - **Anúncios do YouTube** podem tocar antes ou durante o vídeo, e a documentação não diz o que `getCurrentTime()` devolve nesse momento (testar).
-  - **Fones Bluetooth** atrasam o áudio em ~100–300 ms (por isso existe a `latênciaDoÁudio`).
-  - **O app deve pausar o vídeo quando for para segundo plano.**
-  - **Não sobrepor nada ao player** e mantê-lo com no mínimo 200×200 px.
+  - um seek é tratado automaticamente;
+  - linhas com texto vazio apagam o destaque (trecho instrumental).
+- **Regra do YouTube:** **não sobrepor nada ao player** e mantê-lo com no mínimo 200×200 px.
 
 ## Implementação atual
 ```
