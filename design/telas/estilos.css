@@ -1,0 +1,261 @@
+/* =========================================================
+   Inglês com músicas — MVP
+   Tokens e componentes usados nas telas de referência.
+   Os nomes dos tokens são os mesmos do Guia de Identidade Visual.
+   ========================================================= */
+
+:root {
+  /* Fontes */
+  --fonte-ui: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fonte-letra: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+  /* Cores — modo claro */
+  --fundo: #F6F6FA;
+  --superficie: #FFFFFF;
+  --superficie-2: #EEEEF4;
+  --borda: #DCDCE6;
+  --texto: #1C1B2E;
+  --texto-2: #5C5B70;
+  --primaria: #4F46E5;
+  --primaria-pressionada: #4338CA;
+  --sobre-primaria: #FFFFFF;
+  --primaria-tinta: #E7E5FF;
+  --sobre-primaria-tinta: #3730A3;
+  --secundaria: #0F766E;
+  --secundaria-tinta: #DDF3F0;
+  --destaque: #F5B83D;
+  --destaque-tinta: #FFEDB5;
+  --sobre-destaque-tinta: #1C1B2E;
+  --destaque-texto: #8A6100;
+  --sucesso: #15803D;
+  --sucesso-tinta: #DCF5E5;
+  --erro: #B42318;
+  --erro-tinta: #FDE4E1;
+  --esqueleto: #E4E4EC;
+  --sombra: rgba(28, 27, 46, 0.14);
+  --player-fundo: #000000;
+
+  /* Raios */
+  --raio-palavra: 6px;
+  --raio-miniatura: 8px;
+  --raio-linha: 12px;
+  --raio-botao: 14px;
+  --raio-card: 16px;
+  --raio-painel: 24px;
+}
+
+.tema-escuro {
+  --fundo: #111218;
+  --superficie: #1B1C25;
+  --superficie-2: #252633;
+  --borda: #33344A;
+  --texto: #EDEDF3;
+  --texto-2: #A6A7B8;
+  --primaria: #A5A1FF;
+  --primaria-pressionada: #8F8AFF;
+  --sobre-primaria: #111218;
+  --primaria-tinta: #2E2B5C;
+  --sobre-primaria-tinta: #C7C4FF;
+  --secundaria: #5EEAD4;
+  --secundaria-tinta: #123B37;
+  --destaque-tinta: #3D3218;
+  --sobre-destaque-tinta: #FFFFFF;
+  --destaque-texto: #F5B83D;
+  --sucesso: #4ADE80;
+  --sucesso-tinta: #12321F;
+  --erro: #FF8A7A;
+  --erro-tinta: #3A1C1A;
+  --esqueleto: #2A2B38;
+  --sombra: rgba(0, 0, 0, 0.55);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button { font: inherit; }
+
+/* ---------- Página de apresentação (fora do app) ---------- */
+.pagina {
+  min-height: 100vh; padding: 24px 16px 32px; background: #E6E6EE;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  font-family: var(--fonte-ui); color: #1C1B2E;
+}
+.link-indice { align-self: center; width: 390px; max-width: 100%; font-size: 14px; font-weight: 600; color: #3730A3; text-decoration: none; }
+.legenda-tela { margin: 0; font-size: 14px; font-weight: 600; color: #5C5B70; }
+.pagina.mini { padding: 0; background: transparent; }
+.pagina.mini .link-indice, .pagina.mini .legenda-tela { display: none; }
+.pagina.mini .tela { border-radius: 0; box-shadow: none; }
+
+/* ---------- Tela (moldura do celular, 390 × 844) ---------- */
+.tela {
+  width: 390px; height: 844px; flex-shrink: 0; position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  border-radius: 40px; box-shadow: 0 20px 60px rgba(28, 27, 46, 0.18);
+  background: var(--fundo); color: var(--texto); font-family: var(--fonte-ui);
+}
+.area-segura-topo { height: 47px; flex-shrink: 0; }
+
+/* ---------- Tipografia base ---------- */
+.titulo-tela { margin: 0; font-size: 28px; line-height: 34px; font-weight: 800; letter-spacing: -0.01em; }
+.subtitulo-tela { margin: 0; font-size: 15px; line-height: 20px; font-weight: 500; color: var(--texto-2); }
+.rotulo { margin: 0; font-size: 12px; line-height: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--texto-2); }
+.rotulo-secundario { color: var(--secundaria); }
+
+/* ---------- Botões ---------- */
+.botao {
+  height: 52px; padding: 0 20px; border: 0; border-radius: var(--raio-botao);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 16px; line-height: 20px; font-weight: 700; text-decoration: none; cursor: pointer;
+}
+.botao-largo { align-self: stretch; width: 100%; }
+.botao-primario { background: var(--primaria); color: var(--sobre-primaria); }
+.botao-primario:active { background: var(--primaria-pressionada); }
+.botao-secundario { background: var(--primaria-tinta); color: var(--sobre-primaria-tinta); }
+.botao-texto { background: transparent; color: var(--primaria); }
+.botao-compacto { height: 44px; padding: 0 16px; border-radius: 12px; font-size: 15px; }
+.botao-icone {
+  width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 22px; background: transparent;
+  display: flex; align-items: center; justify-content: center; color: var(--texto); cursor: pointer;
+}
+.botao-icone:active { background: var(--superficie-2); }
+.botao-flutuante {
+  position: absolute; left: 50%; bottom: 50px; transform: translateX(-50%);
+  height: 44px; padding: 0 18px 0 14px; border: 0; border-radius: 22px; white-space: nowrap;
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  background: var(--primaria); color: var(--sobre-primaria);
+  font-size: 15px; line-height: 20px; font-weight: 700; box-shadow: 0 6px 18px var(--sombra);
+}
+
+/* ---------- Acervo ---------- */
+.cabecalho-acervo { padding: 12px 20px 16px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+.rotulo-lista { padding: 0 20px 8px; }
+.lista-musicas { list-style: none; margin: 0; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 8px; }
+.esqueleto-lista { padding-top: 24px; }
+.card-musica {
+  display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 8px 12px 12px;
+  border-radius: var(--raio-card); background: var(--superficie); border: 1px solid var(--borda);
+  color: inherit; text-decoration: none;
+}
+.card-musica:active { background: var(--primaria-tinta); }
+.card-esqueleto { padding: 12px; }
+.miniatura {
+  width: 96px; height: 54px; flex-shrink: 0; border-radius: var(--raio-miniatura);
+  display: flex; align-items: center; justify-content: center;
+}
+.miniatura-0 { background: var(--primaria-tinta); color: var(--primaria); }
+.miniatura-1 { background: var(--secundaria-tinta); color: var(--secundaria); }
+.miniatura-2 { background: var(--destaque-tinta); color: var(--destaque-texto); }
+.miniatura-3 { background: var(--superficie-2); color: var(--texto-2); }
+.card-textos { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.card-esqueleto .card-textos { gap: 8px; }
+.card-titulo { font-size: 17px; line-height: 22px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-artista { font-size: 15px; line-height: 20px; font-weight: 500; color: var(--texto-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.esqueleto { border-radius: 9px; background: var(--esqueleto); }
+
+/* ---------- Estados de mensagem (vazio, erro, sem conexão) ---------- */
+.mensagem-estado {
+  flex: 1; padding: 0 32px 120px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; gap: 12px;
+}
+.mensagem-musica { height: 100%; padding: 40px 28px 80px; }
+.mensagem-musica .botao + .botao { margin-top: -4px; }
+.selo-icone { width: 72px; height: 72px; border-radius: 36px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+.selo-pequeno { width: 52px; height: 52px; margin-bottom: 0; }
+.selo-primario { background: var(--primaria-tinta); color: var(--sobre-primaria-tinta); }
+.selo-erro { background: var(--erro-tinta); color: var(--erro); }
+.selo-sucesso { background: var(--sucesso-tinta); color: var(--sucesso); }
+.mensagem-titulo { margin: 0; font-size: 20px; line-height: 26px; font-weight: 800; color: var(--texto); }
+.mensagem-texto { margin: 0 0 12px; font-size: 15px; line-height: 22px; color: var(--texto-2); }
+
+/* ---------- Música: barra, player, dica, avisos ---------- */
+.barra-musica { height: 56px; flex-shrink: 0; display: flex; align-items: center; gap: 4px; padding: 0 12px 0 6px; }
+.barra-musica .botao-icone { color: var(--texto); }
+.barra-textos { display: flex; flex-direction: column; min-width: 0; }
+.barra-titulo { font-size: 17px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barra-artista { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--texto-2); }
+
+.player { width: 390px; height: 219px; flex-shrink: 0; position: relative; background: var(--player-fundo); display: flex; align-items: center; justify-content: center; }
+.player-moldura { position: absolute; inset: 10px; border: 1px dashed #4A4A5C; border-radius: 6px; }
+.player-centro { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.player-play { width: 56px; height: 56px; border-radius: 28px; background: #2A2A36; display: flex; align-items: center; justify-content: center; }
+.player-rotulo { font-size: 13px; line-height: 18px; font-weight: 600; color: #C9C9D6; }
+.player-nota { font-size: 11px; line-height: 14px; color: #9A9AAD; }
+.player-bloqueado {
+  position: absolute; inset: 0; background: var(--superficie-2); color: var(--texto-2);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  font-size: 13px; line-height: 18px; font-weight: 600;
+}
+
+.dica {
+  margin: 0; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 13px; line-height: 18px; font-weight: 500; color: var(--texto-2); border-bottom: 1px solid var(--borda);
+}
+.aviso { flex-shrink: 0; display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; font-size: 14px; line-height: 20px; font-weight: 600; }
+.aviso .icone { flex-shrink: 0; margin-top: 1px; }
+.aviso-info { background: var(--primaria-tinta); color: var(--sobre-primaria-tinta); }
+.aviso-erro { background: var(--erro-tinta); color: var(--erro); }
+.aviso-sucesso { background: var(--sucesso-tinta); color: var(--sucesso); }
+
+/* ---------- Letra sincronizada ---------- */
+.area-letra { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+.letra { padding: 12px 16px 0; display: flex; flex-direction: column; gap: 6px; transition: transform 300ms ease-out; }
+.linha-instrumental {
+  height: 44px; padding: 0 10px; display: flex; align-items: center; gap: 8px;
+  font-size: 13px; line-height: 18px; font-weight: 600; color: var(--texto-2);
+}
+.linha {
+  display: flex; flex-wrap: wrap; padding: 1px 6px; border-radius: var(--raio-linha);
+  font-family: var(--fonte-letra); font-size: 20px; line-height: 30px; font-weight: 400; color: var(--texto-2);
+}
+.linha-atual { background: var(--destaque-tinta); color: var(--sobre-destaque-tinta); font-weight: 700; }
+.palavra {
+  appearance: none; border: 0; margin: 0; padding: 7px 0; background: transparent;
+  font: inherit; color: inherit; cursor: pointer; display: flex; align-items: center;
+}
+.palavra-texto { padding: 0 4px; border-radius: var(--raio-palavra); }
+.palavra-texto.selecionada { background: var(--primaria-tinta); color: var(--sobre-primaria-tinta); font-weight: 700; }
+.palavra-texto.sel-inicio:not(.sel-fim) { border-radius: var(--raio-palavra) 0 0 var(--raio-palavra); }
+.palavra-texto.sel-fim:not(.sel-inicio) { border-radius: 0 var(--raio-palavra) var(--raio-palavra) 0; }
+.palavra-texto.sel-meio { border-radius: 0; }
+.alca { position: relative; display: inline-block; width: 2px; height: 30px; background: var(--primaria); }
+.alca::after { content: ''; position: absolute; left: -5px; width: 12px; height: 12px; border-radius: 6px; background: var(--primaria); }
+.alca-inicio::after { top: -7px; }
+.alca-fim::after { bottom: -7px; }
+
+.letra-esqueleto { padding: 24px 22px; display: flex; flex-direction: column; gap: 26px; }
+
+.card-fim {
+  margin-top: 18px; padding: 24px 20px; border-radius: 20px; background: var(--superficie); border: 1px solid var(--borda);
+  display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
+}
+.card-fim .mensagem-texto { margin-bottom: 6px; }
+
+/* ---------- Painel de tradução (bottom sheet) ---------- */
+.painel-traducao-sheet {
+  position: absolute; left: 0; right: 0; bottom: 0; min-height: 232px;
+  padding: 8px 24px 46px; border-radius: var(--raio-painel) var(--raio-painel) 0 0;
+  background: var(--superficie); border-top: 1px solid var(--borda); box-shadow: 0 -10px 30px var(--sombra);
+  display: flex; flex-direction: column;
+}
+.painel-alca { align-self: center; width: 36px; height: 4px; border-radius: 2px; background: var(--borda); }
+.painel-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.botao-fechar { margin-right: -10px; color: var(--texto-2); }
+.painel-palavra { margin: 0; font-family: var(--fonte-letra); font-size: 28px; line-height: 34px; font-weight: 700; }
+.painel-frase { margin: 0; font-family: var(--fonte-letra); font-size: 22px; line-height: 30px; font-weight: 700; }
+.divisor { height: 1px; background: var(--borda); margin: 14px 0; }
+.painel-traducao { margin: 0; font-family: var(--fonte-letra); font-size: 20px; line-height: 28px; color: var(--secundaria); }
+.painel-carregando { display: flex; flex-direction: column; gap: 10px; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--texto-2); }
+.painel-erro { display: flex; align-items: center; gap: 12px; color: var(--erro); font-size: 15px; line-height: 20px; font-weight: 600; }
+.painel-erro span { flex: 1; }
+.painel-erro .icone { flex-shrink: 0; }
+
+/* ---------- Índice das telas ---------- */
+.indice { margin: 0; padding: 40px 24px 64px; background: #F6F6FA; color: #1C1B2E; font-family: var(--fonte-ui); }
+.indice-cabecalho { max-width: 1200px; margin: 0 auto 24px; }
+.indice-cabecalho h1 { margin: 0 0 8px; font-size: 32px; line-height: 40px; font-weight: 800; }
+.indice-cabecalho p { margin: 0; font-size: 15px; line-height: 22px; color: #5C5B70; }
+.indice-grupo { max-width: 1200px; margin: 0 auto 32px; }
+.indice-grupo h2 { margin: 0 0 14px; font-size: 20px; line-height: 26px; font-weight: 800; }
+.indice-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+.indice-item { display: flex; flex-direction: column; gap: 8px; color: #1C1B2E; text-decoration: none; font-size: 14px; font-weight: 600; }
+.indice-mini { width: 195px; height: 422px; overflow: hidden; border-radius: 22px; border: 1px solid #DCDCE6; background: #FFFFFF; }
+.indice-mini iframe { width: 390px; height: 844px; border: 0; transform: scale(0.5); transform-origin: 0 0; pointer-events: none; }

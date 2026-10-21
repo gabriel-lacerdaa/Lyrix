@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      # Valores do backend/.env (padrões iguais aos de api/config.py).
+      POSTGRES_USER: ${POSTGRES_USER:-lyrix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lyrix}
+      POSTGRES_DB: ${POSTGRES_DB:-lyrix}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      # Executado só na primeira inicialização (volume vazio). Depois, rode o schemas.sql manualmente.
+      - ./schemas.sql:/docker-entrypoint-initdb.d/schemas.sql:ro
+
+volumes:
+  postgres-data:

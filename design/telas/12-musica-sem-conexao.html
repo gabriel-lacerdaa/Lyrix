@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Música — aberta sem conexão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body class="pagina">
+<script>if (location.hash === '#mini') document.body.classList.add('mini');</script>
+<a class="link-indice" href="index.html">‹ Todas as telas</a>
+<main class="tela " aria-label="Música — aberta sem conexão">
+<div class="area-segura-topo"></div>
+<header class="barra-musica">
+  <a class="botao-icone" href="01-acervo.html" aria-label="Voltar ao acervo"><svg class="icone" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a>
+  <div class="barra-textos"><span class="barra-titulo">Lanterns on the River</span><span class="barra-artista">Maya Corvel</span></div>
+</header>
+<div class="player"><div class="player-bloqueado"><svg class="icone" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 12.5a10 10 0 0 1 5.2-2.8"/><path d="M19 12.5a10 10 0 0 0-2.2-1.6"/><path d="M2 8.8a15 15 0 0 1 4.2-2.6"/><path d="M22 8.8A15 15 0 0 0 10.7 5"/><path d="M12 20h.01"/></svg><span>Sem conexão</span></div></div>
+<div class="area-letra">
+<div class="mensagem-estado mensagem-musica" role="alert">
+  <div class="selo-icone selo-erro"><svg class="icone" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v6M12 16.5h.01"/></svg></div>
+  <h2 class="mensagem-titulo">Você está sem conexão</h2>
+  <p class="mensagem-texto">Conecte-se à internet para carregar o vídeo e a letra.</p>
+  <button type="button" class="botao botao-primario botao-largo">Tentar de novo</button>
+  <a class="botao botao-texto botao-largo" href="01-acervo.html">Voltar ao acervo</a>
+</div>
+</div>
+</main>
+<p class="legenda-tela">Música — aberta sem conexão</p>
+</body>
+</html>

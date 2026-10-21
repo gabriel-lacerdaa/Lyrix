@@ -1,0 +1,6 @@
+# Dependências do alinhamento automático (só o worker precisa). Instalam o PyTorch (vários GB).
+# Também é preciso ter o ffmpeg no PATH.
+-r requirements.txt
+yt-dlp
+demucs
+stable-ts

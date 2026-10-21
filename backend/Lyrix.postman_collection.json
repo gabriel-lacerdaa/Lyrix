@@ -1,0 +1,156 @@
+{
+  "info": {
+    "name": "Lyrix API",
+    "description": "Um request por endpoint. Detalhes de cada rota em backend/API.md.\n\nVariáveis da coleção: baseUrl, adminToken (só se ADMIN_TOKEN estiver preenchido no backend/.env), youtubeUrl, videoId e songId (preenchidos sozinhos ao rodar \"Validar link\" e \"Salvar música\").",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8000" },
+    { "key": "adminToken", "value": "" },
+    { "key": "youtubeUrl", "value": "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+    { "key": "videoId", "value": "" },
+    { "key": "songId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/health" }
+    },
+    {
+      "name": "App",
+      "item": [
+        {
+          "name": "Listar músicas publicadas",
+          "request": { "method": "GET", "url": "{{baseUrl}}/songs" }
+        },
+        {
+          "name": "Detalhe da música publicada",
+          "request": { "method": "GET", "url": "{{baseUrl}}/songs/{{songId}}" }
+        },
+        {
+          "name": "Traduzir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"text\": \"drifting\",\n  \"kind\": \"word\"\n}" },
+            "url": "{{baseUrl}}/translate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Curadoria (admin)",
+      "auth": {
+        "type": "apikey",
+        "apikey": [
+          { "key": "key", "value": "X-Admin-Token", "type": "string" },
+          { "key": "value", "value": "{{adminToken}}", "type": "string" },
+          { "key": "in", "value": "header", "type": "string" }
+        ]
+      },
+      "item": [
+        {
+          "name": "Validar link (import)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["if (pm.response.code === 200) pm.collectionVariables.set(\"videoId\", pm.response.json().youtube_video_id);"]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"{{youtubeUrl}}\"\n}" },
+            "url": "{{baseUrl}}/admin/songs/import"
+          }
+        },
+        {
+          "name": "Salvar música",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": ["if (pm.response.code === 201) pm.collectionVariables.set(\"songId\", pm.response.json().id);"]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"youtube_video_id\": \"{{videoId}}\",\n  \"artist\": \"Rick Astley\",\n  \"title\": \"Never Gonna Give You Up\",\n  \"video_kind\": \"clip\"\n}"
+            },
+            "url": "{{baseUrl}}/admin/songs"
+          }
+        },
+        {
+          "name": "Listar músicas",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/admin/songs",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "songs"],
+              "query": [{ "key": "status", "value": "ready_for_review", "disabled": true }]
+            }
+          }
+        },
+        {
+          "name": "Detalhe da música",
+          "request": { "method": "GET", "url": "{{baseUrl}}/admin/songs/{{songId}}" }
+        },
+        {
+          "name": "Editar música",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"offset_ms\": 0,\n  \"cefr_level\": \"A2\"\n}" },
+            "url": "{{baseUrl}}/admin/songs/{{songId}}"
+          }
+        },
+        {
+          "name": "Enviar letra e alinhar",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"We're no strangers to love\\nYou know the rules and so do I\"\n}"
+            },
+            "url": "{{baseUrl}}/admin/songs/{{songId}}/lyrics"
+          }
+        },
+        {
+          "name": "Reprocessar",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"method\": \"auto\"\n}" },
+            "url": "{{baseUrl}}/admin/songs/{{songId}}/reprocess"
+          }
+        },
+        {
+          "name": "Publicar",
+          "request": { "method": "POST", "url": "{{baseUrl}}/admin/songs/{{songId}}/publish" }
+        },
+        {
+          "name": "Tirar do ar",
+          "request": { "method": "POST", "url": "{{baseUrl}}/admin/songs/{{songId}}/unpublish" }
+        },
+        {
+          "name": "Baixar LRC",
+          "request": { "method": "GET", "url": "{{baseUrl}}/admin/songs/{{songId}}/lrc" }
+        },
+        {
+          "name": "Excluir música",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/admin/songs/{{songId}}" }
+        }
+      ]
+    }
+  ]
+}
